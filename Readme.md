@@ -35,6 +35,34 @@ app.get('/index', function(req, res, next) {
 });
 ```
 
+Each handler key is either a full mimetype string, or a file extension string.
+
+## Specifiying priority
+
+When multiple handlers may be acceptable to the client, then any may be used
+for satisfying the request (it is typically the first specified, but this is
+dependent on the javascript engine implementation).
+
+To prioritise handlers, simply use the quality notation in the same way as
+the client specifies the Accept header:
+
+```javascript
+app.get('/index', function(req, res, next) {
+    req.negotiate({
+        'application/json;q=0.9': function() {
+            res.send('{ message: "Hello World" }');
+        },
+        'application/html;q=1.1': function() {
+            res.send('<html><body><h1>Hello World</h1></body></html>');
+        },
+        'default': function() {
+            // send HTML anyway
+            res.send('<html><body><h1>Hello World</h1></body></html>');
+        }
+    });
+});
+```
+
 ## Handling unacceptable requests
 
 If a 'default' handler is not provided, then req.negotiate will throw

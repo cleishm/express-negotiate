@@ -9,11 +9,11 @@ var express = require('express')
     , negotiate = require('../');
 
 module.exports = {
-    '.version': function(){
+    '.version': function() {
         negotiate.version.should.match(/^\d+\.\d+\.\d+$/);
     },
 
-    'test mimetype selection': function(){
+    'test mimetype selection': function() {
         var app = express.createServer();
 
         app.get('/neg', function(req, res, next) {
@@ -59,7 +59,59 @@ module.exports = {
             { body: 'html' });
     },
 
-    'test format extension override': function(){
+    'test mimetype wildcards': function() {
+        var app = express.createServer();
+
+        app.get('/neg', function(req, res, next) {
+            req.negotiate({
+                'application/json': function() {
+                    res.send('json');
+                },
+                'html': function() {
+                    res.send('html');
+                },
+                'default': function() {
+                    res.send('unknown');
+                }
+            });
+        });
+
+        assert.response(app,
+            { url: '/neg' },
+            { body: 'json' });
+
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': 'text/*' } },
+            { body: 'html' });
+
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': '*/*' } },
+            { body: 'json' });
+    },
+
+    'test handler qualities': function() {
+        var app = express.createServer();
+
+        app.get('/neg', function(req, res, next) {
+            req.negotiate({
+                'application/json': function() {
+                    res.send('json');
+                },
+                'text/html;q=0.9': function() {
+                    res.send('html');
+                },
+                'text/plain;q=1.1': function() {
+                    res.send('plain');
+                }
+            });
+        });
+
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': '*/*' } },
+            { body: 'plain' });
+    },
+
+    'test format extension override': function() {
         var app = express.createServer();
 
         app.get('/neg.:format?', function(req, res, next) {
