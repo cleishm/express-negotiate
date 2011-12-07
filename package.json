@@ -1,0 +1,21 @@
+{
+    "name": "express-negotiate"
+  , "version": "0.0.1"
+  , "description": "Express content negotiation functions"
+  , "keywords": ["express"]
+  , "author": "Chris Leishman <chris@leishman.org>"
+  , "dependencies": {
+      "mime": ">= 0.0.1"
+  }
+  , "devDependencies": {
+      "should": "0.2.1"
+    , "express": ">= 2.3.7"
+    , "expresso": ">= 0.7.6"
+  }
+  , "main": "index"
+  , "engines": { "node": ">= 0.2.0" }
+  , "repository": {
+      "type": "git"
+    , "url": "git://github.com/chrisleishman/express-negotiate.git"
+  }
+}
