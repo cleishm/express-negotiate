@@ -77,11 +77,6 @@ app.get('/index.:format?', function(req, res, next) {
 ```
 
 
-## Credits
-
-Methods for parsing HTTP header qStrings taken from connect-conneg,
-by Jeff Craig (https://github.com/foxxtrot/connect-conneg).
-
 ## License 
 
 (The MIT License)
