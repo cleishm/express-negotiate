@@ -22,7 +22,7 @@ Then use in the route handler:
 app.get('/index', function(req, res, next) {
     req.negotiate({
         'application/json': function() {
-            res.send('{ message: 'Hello World' }');
+            res.send('{ message: "Hello World" }');
         },
         'html': function() {
             res.send('<html><body><h1>Hello World</h1></body></html>');
@@ -45,14 +45,14 @@ express error handling:
 app.get('/index', function(req, res, next) {
     req.negotiate({
         'application/json': function() {
-            res.send('{ message: 'Hello World' }');
+            res.send('{ message: "Hello World" }');
         }
     });
 });
 
 app.error(function(err, req, res, next) {
     if (err instanceof negotiate.NotAcceptable) {
-        res.send('Sorry, I dont know how to return any of the Content-Types requested', 406);
+        res.send('Sorry, I dont know how to return any of the content types requested', 406);
     } else {
         next(err);
     }
@@ -70,7 +70,7 @@ Content-Type regardless of the Accept header.
 app.get('/index.:format?', function(req, res, next) {
     req.negotiate(req.params.format, {
         'application/json': function() {
-            res.send('{ message: 'Hello World' }');
+            res.send('{ message: "Hello World" }');
         }
     });
 });
