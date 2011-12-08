@@ -39,12 +39,12 @@ Each handler key is either a full mimetype string, or a file extension string.
 
 ## Specifiying priority
 
-When multiple handlers may be acceptable to the client, then any may be used
-for satisfying the request (it is typically the first specified, but this is
+When multiple handlers are acceptable for satisfying the request, then any may
+be used the request (it is typically the first specified, however this is
 dependent on the javascript engine implementation).
 
-To prioritise handlers, simply use the quality notation in the same way as
-the client specifies the Accept header:
+To prioritise handlers, simply append a quality in the same notation as the
+client uses when specifying an Accept header:
 
 ```javascript
 app.get('/index', function(req, res, next) {
@@ -63,11 +63,15 @@ app.get('/index', function(req, res, next) {
 });
 ```
 
+Note that the handler priority is only used after the priorities specified
+by any Accept header in the request have been considered.  A priority cannot be
+specified on the 'default' handler.
+
 ## Handling unacceptable requests
 
-If a 'default' handler is not provided, then req.negotiate will throw
-a negotiate.NotAcceptable error.  This can be caught and handled using
-express error handling:
+If there are no acceptable handlers, and no 'default' handler is specified,
+then req.negotiate will throw a negotiate.NotAcceptable error.  This can be
+caught and handled using express error handling:
 
 ```javascript
 app.get('/index', function(req, res, next) {
