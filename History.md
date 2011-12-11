@@ -1,3 +1,8 @@
+0.0.3 / 2001-12-11
+==================
+
+  * Support passing 'next' to negotiate, for use in error generation
+
 0.0.2 / 2001-12-07
 ==================
 

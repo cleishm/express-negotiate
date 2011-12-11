@@ -91,6 +91,19 @@ app.error(function(err, req, res, next) {
 });
 ```
 
+In some cases, it is preferable to call next(err) rather than throw an error.
+If negotiate is passed the 'next' callback function, it will call that
+instead:
+
+```javascript
+app.get('/index', function(req, res, next) {
+    req.negotiate(next, {
+          'application/json': function() {
+            res.send('{ message: "Hello World" }');
+        }
+    });
+});
+```
 
 ## Allowing route filename extensions to override Accept header
 

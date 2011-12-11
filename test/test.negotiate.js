@@ -164,5 +164,35 @@ module.exports = {
         assert.response(app,
             { url: '/neg.xxxx' },
             { body: 'Sorry' });
+    },
+
+    'test no acceptable handler with next': function() {
+        var app = express.createServer();
+
+        app.get('/neg.:format?', function(req, res, next) {
+            req.negotiate(req.params.format, next, {
+            });
+        });
+
+        app.get('/negbare', function(req, res, next) {
+            req.negotiate(next, {
+            });
+        });
+
+        app.error(function(err, req, res, next) {
+            if (err instanceof negotiate.NotAcceptable) {
+                res.send('Sorry', 406);
+            } else {
+                next(err);
+            }
+        });
+
+        assert.response(app,
+            { url: '/neg.xxxx' },
+            { body: 'Sorry' });
+
+        assert.response(app,
+            { url: '/negbare' },
+            { body: 'Sorry' });
     }
 }
