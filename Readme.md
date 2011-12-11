@@ -108,8 +108,20 @@ app.get('/index.:format?', function(req, res, next) {
 });
 ```
 
+Picking up the filename extension on a "catch-all" route is a little trickier.
+The following example uses a regex to achieve this:
 
-## License 
+```javascript
+app.get(/^.*?(?:\.([^\.\/]+))?$/, function(req, res) {
+    req.negotiate(req.params[0], {
+        'application/json': function() {
+            res.send('{ message: "Hello World" }');
+        }
+    });
+});
+```
+
+## License
 
 (The MIT License)
 
