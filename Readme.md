@@ -21,13 +21,13 @@ Then use in the route handler:
 ```javascript
 app.get('/index', function(req, res, next) {
     req.negotiate({
-        'application/json': function() {
+          'application/json': function() {
             res.send('{ message: "Hello World" }');
-        },
-        'html': function() {
+        }
+        , 'html': function() {
             res.send('<html><body><h1>Hello World</h1></body></html>');
-        },
-        'default': function() {
+        }
+        , 'default': function() {
             // send HTML anyway
             res.send('<html><body><h1>Hello World</h1></body></html>');
         }
@@ -49,13 +49,13 @@ client uses when specifying an Accept header:
 ```javascript
 app.get('/index', function(req, res, next) {
     req.negotiate({
-        'application/json;q=0.9': function() {
+          'application/json;q=0.9': function() {
             res.send('{ message: "Hello World" }');
-        },
-        'application/html;q=1.1': function() {
+        }
+        , 'application/html;q=1.1': function() {
             res.send('<html><body><h1>Hello World</h1></body></html>');
-        },
-        'default': function() {
+        }
+        , 'default': function() {
             // send HTML anyway
             res.send('<html><body><h1>Hello World</h1></body></html>');
         }
@@ -76,7 +76,7 @@ caught and handled using express error handling:
 ```javascript
 app.get('/index', function(req, res, next) {
     req.negotiate({
-        'application/json': function() {
+          'application/json': function() {
             res.send('{ message: "Hello World" }');
         }
     });
@@ -101,7 +101,7 @@ Content-Type regardless of the Accept header.
 ```javascript
 app.get('/index.:format?', function(req, res, next) {
     req.negotiate(req.params.format, {
-        'application/json': function() {
+          'application/json': function() {
             res.send('{ message: "Hello World" }');
         }
     });
@@ -114,8 +114,12 @@ The following example uses a regex to achieve this:
 ```javascript
 app.get(/^.*?(?:\.([^\.\/]+))?$/, function(req, res) {
     req.negotiate(req.params[0], {
-        'application/json': function() {
-            res.send('{ message: "Hello World" }');
+          'json': function() {
+            res.send({ error: 404, message: 'Not Found' }, 404);
+        }
+        , 'default': function() {
+            res.statusCode = 404;
+            res.send('<html><body><h1>Not Found</h1></body></html>');
         }
     });
 });
