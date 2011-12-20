@@ -67,6 +67,24 @@ Note that the handler priority is only used after the priorities specified
 by any Accept header in the request have been considered.  A priority cannot be
 specified on the 'default' handler.
 
+## Combining handlers
+
+When the same handler can be used for multiple types, then they can be
+combined in the string:
+
+```javascript
+app.get('/index', function(req, res, next) {
+    req.negotiate({
+          'application/json;q=0.9': function() {
+            res.send('{ message: "Hello World" }');
+        }
+        , 'html;q=1.1,default': function() {
+            res.send('<html><body><h1>Hello World</h1></body></html>');
+        }
+    });
+});
+```
+
 ## Handling unacceptable requests
 
 If there are no acceptable handlers, and no 'default' handler is specified,
@@ -127,10 +145,10 @@ The following example uses a regex to achieve this:
 ```javascript
 app.get(/^.*?(?:\.([^\.\/]+))?$/, function(req, res) {
     req.negotiate(req.params[0], {
-          'json': function() {
+          'json;q=0.9': function() {
             res.send({ error: 404, message: 'Not Found' }, 404);
         }
-        , 'default': function() {
+        , 'html;q=1.1,default': function() {
             res.statusCode = 404;
             res.send('<html><body><h1>Not Found</h1></body></html>');
         }

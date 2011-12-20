@@ -111,6 +111,34 @@ module.exports = {
             { body: 'plain' });
     },
 
+    'test multiple hanlder types': function() {
+        var app = express.createServer();
+
+        app.get('/neg', function(req, res, next) {
+            req.negotiate({
+                'json,xml': function() {
+                    res.send('json + xml');
+                },
+                'html;q=1.1,default': function() {
+                    res.send('html');
+                }
+            });
+        });
+
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': 'application/octet-stream' } },
+            { body: 'html' });
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': 'application/json' } },
+            { body: 'json + xml' });
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': 'application/xml' } },
+            { body: 'json + xml' });
+        assert.response(app,
+            { url: '/neg', headers: { 'Accepts': 'text/html' } },
+            { body: 'html' });
+    },
+
     'test format extension override': function() {
         var app = express.createServer();
 
