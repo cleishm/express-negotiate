@@ -1,3 +1,8 @@
+0.0.4 / 2001-12-20
+==================
+
+  * Allow multiple types to be specified per handler
+
 0.0.3 / 2001-12-11
 ==================
 

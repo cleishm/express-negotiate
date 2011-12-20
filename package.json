@@ -1,6 +1,6 @@
 {
     "name": "express-negotiate"
-  , "version": "0.0.3"
+  , "version": "0.0.4"
   , "description": "Express content negotiation functions"
   , "keywords": ["express"]
   , "author": "Chris Leishman <chris@leishman.org>"
