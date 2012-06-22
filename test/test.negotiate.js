@@ -31,31 +31,31 @@ module.exports = {
         });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/json' } },
+            { url: '/neg', headers: { 'Accept': 'application/json' } },
             { body: 'json' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'accepts': 'text/html' } },
+            { url: '/neg', headers: { 'accept': 'text/html' } },
             { body: 'html' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'ACCEPTS': 'application/octet-stream' } },
+            { url: '/neg', headers: { 'ACCEPT': 'application/octet-stream' } },
             { body: 'unknown' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/json, text/html' } },
+            { url: '/neg', headers: { 'Accept': 'application/json, text/html' } },
             { body: 'json' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/json;q=0.8, text/html' } },
+            { url: '/neg', headers: { 'Accept': 'application/json;q=0.8, text/html' } },
             { body: 'html' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/json;q=0.8, text/html;q=0.7' } },
+            { url: '/neg', headers: { 'Accept': 'application/json;q=0.8, text/html;q=0.7' } },
             { body: 'json' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/octet-stream;q=1.1, text/html;q=0.7' } },
+            { url: '/neg', headers: { 'Accept': 'application/octet-stream;q=1.1, text/html;q=0.7' } },
             { body: 'html' });
     },
 
@@ -81,11 +81,11 @@ module.exports = {
             { body: 'json' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'text/*' } },
+            { url: '/neg', headers: { 'Accept': 'text/*' } },
             { body: 'html' });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': '*/*' } },
+            { url: '/neg', headers: { 'Accept': '*/*' } },
             { body: 'json' });
     },
 
@@ -107,7 +107,7 @@ module.exports = {
         });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': '*/*' } },
+            { url: '/neg', headers: { 'Accept': '*/*' } },
             { body: 'plain' });
     },
 
@@ -126,16 +126,16 @@ module.exports = {
         });
 
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/octet-stream' } },
+            { url: '/neg', headers: { 'Accept': 'application/octet-stream' } },
             { body: 'html' });
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/json' } },
+            { url: '/neg', headers: { 'Accept': 'application/json' } },
             { body: 'json + xml' });
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'application/xml' } },
+            { url: '/neg', headers: { 'Accept': 'application/xml' } },
             { body: 'json + xml' });
         assert.response(app,
-            { url: '/neg', headers: { 'Accepts': 'text/html' } },
+            { url: '/neg', headers: { 'Accept': 'text/html' } },
             { body: 'html' });
     },
 
@@ -169,7 +169,7 @@ module.exports = {
             { body: 'unknown' });
 
         assert.response(app,
-            { url: '/neg.json', headers: { 'Accepts': 'text/html' } },
+            { url: '/neg.json', headers: { 'Accept': 'text/html' } },
             { body: 'json' });
     },
 
