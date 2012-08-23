@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/chrisleishman/express-negotiate.png)](http://travis-ci.org/chrisleishman/express-negotiate)
 
 # express-negotiate
 
